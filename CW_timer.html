@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+
+    <style media="screen">
+      button:active{
+        transform: scale(.95);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <span class="h">00</span>:
+      <span class="m">00</span>:
+      <span class="s">00</span>
+    </div>
+    <div class="btn">
+    <button id="start" type="button" name="button">Старт</button>
+    <button id="stop" type="button" name="button">Стоп</button>
+    <button id="reset" type="button" name="button">Сбросить</button>
+    </div>
+
+    <script type="text/javascript">
+    let counter = 1;
+    let counterM = 1;
+    let counterH =1;
+    let timer;
+    document.querySelector("body").style.cssText = `display: flex;flex-direction: column;justify-content: center;align-items: center;`;
+    document.querySelector(".container").style.cssText = `height: 200px;width: 600px;background-color: rgb(112, 112, 112);font-size: 7rem;display: flex;justify-content: center;align-items: center;margin: 20px;border: 10px solid black;border-radius: 100px;`;
+    document.querySelectorAll("button").forEach(item => {item.style.cssText =`width: 200px;height: 100px;margin: 10px;border-radius: 50px;border: 5px solid black;font-size: 2rem;`});
+    const seconds = document.querySelector(".s");
+    const minutes = document.querySelector(".m");
+    const hours = document.querySelector(".h");
+    const start = document.querySelector("#start");
+    const stop = document.querySelector("#stop");
+    const reset = document.querySelector("#reset");
+
+
+    let secondGo = () => {
+      if (counter.toString().length === 1) {
+        seconds.innerHTML = `0${counter}`
+        counter++
+      }
+      else if (counter === 60) {
+        counter = 0;
+        seconds.innerHTML = `0${counter}`
+        counter++
+        if (counterM.toString().length === 1) {
+          minutes.innerHTML = `0${counterM}`
+          counterM++
+        }
+        else if (counterM === 60) {
+          counterM = 0;
+          minutes.innerHTML = `0${counterM}`
+          counterM++
+          if (counterH.toString().length === 1) {
+            hours.innerHTML = `0${counterH}`
+            counterH++
+          }
+          else if (counterH === 24) {
+            counterH = 0;
+            hours.innerHTML = `0${counterM}`
+            counterH++
+          }
+          else {
+            hours.innerHTML = counterH;
+            counterH++
+          }
+        }
+        else {
+          minutes.innerHTML = counterM
+          counterM++
+        }
+      }
+      else {
+        seconds.innerHTML = counter
+        counter++
+      }
+    };
+    start.onclick = () => {timer = setInterval(secondGo, 1000);document.querySelector(".container").style.backgroundColor = "rgb(16, 191, 52)"};
+    stop.onclick = () => {clearInterval(timer);document.querySelector(".container").style.backgroundColor = "rgb(212, 72, 30)"};
+    reset.onclick = () => {
+      document.querySelector(".container").style.backgroundColor = "rgb(112, 112, 112)"
+      seconds.innerHTML = "00";
+      minutes.innerHTML = "00";
+      hours.innerHTML = "00";
+      counter = 1;
+      counterM = 1;
+      counterH =1;
+    }
+    </script>
+
+  </body>
+</html>
