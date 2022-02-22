@@ -80,7 +80,9 @@
         counter++
       }
     };
-    start.onclick = () => {timer = setInterval(secondGo, 1000);document.querySelector(".container").style.backgroundColor = "rgb(16, 191, 52)"};
+    start.onclick = () => {if (timer) {
+        clearInterval(timer)
+      };timer = setInterval(secondGo, 1000);document.querySelector(".container").style.backgroundColor = "rgb(16, 191, 52)"};
     stop.onclick = () => {clearInterval(timer);document.querySelector(".container").style.backgroundColor = "rgb(212, 72, 30)"};
     reset.onclick = () => {
       document.querySelector(".container").style.backgroundColor = "rgb(112, 112, 112)"
